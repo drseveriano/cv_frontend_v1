@@ -1,8 +1,6 @@
-import appAndPages from './app-and-pages'
-import charts from './charts'
-import dashboard from './dashboard'
-import forms from './forms'
-import others from './others'
-import uiElements from './ui-elements'
+import dashboard from "@/navigation/vertical/primary";
+import psychArea from "@/navigation/vertical/psych-area";
+import finance from "@/navigation/vertical/finance";
+import settings from "@/navigation/vertical/settings";
 
-export default [...dashboard, ...appAndPages, ...uiElements, ...forms, ...charts, ...others]
+export default [...dashboard, ...psychArea, ...finance, ...settings]
