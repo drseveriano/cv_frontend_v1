@@ -1,5 +1,11 @@
 <script setup>
 import congoImg from '@images/illustrations/congo-illustration.png'
+const props = defineProps({
+  user: {
+    type: String,
+    required: true,
+  }
+})
 </script>
 
 <template>
@@ -8,15 +14,11 @@ import congoImg from '@images/illustrations/congo-illustration.png'
       <VCol cols="8">
         <VCardText>
           <h6 class="text-lg text-no-wrap font-weight-semibold">
-            Congratulations John! 🎉
+            Olá {{ props.user }}! 🎉
           </h6>
           <p class="mb-2">
-            Best seller of the month
+            Bem-vindo à Clínica Virtual
           </p>
-          <h5 class="text-h5 font-weight-semibold text-primary mb-2">
-            $48.9k
-          </h5>
-          <VBtn>View Sales</VBtn>
         </VCardText>
       </VCol>
 

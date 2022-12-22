@@ -1,36 +1,37 @@
 <script setup>
 const statistics = [
   {
-    title: 'Sales',
-    stats: '230k',
-    icon: 'tabler-chart-pie-2',
+    title: 'Clientes',
+    stats: '6',
+    icon: 'tabler-users',
     color: 'primary',
   },
   {
-    title: 'Customers',
-    stats: '8.549k',
-    icon: 'tabler-users',
+    title: 'Consultas Confirmadas (futuras)',
+    stats: '12',
+    icon: 'tabler-license',
     color: 'info',
   },
   {
-    title: 'Products',
-    stats: '1.423k',
-    icon: 'tabler-shopping-cart',
-    color: 'error',
+    title: 'Rating Atual',
+    stats: '4.5 em 5',
+    icon: 'tabler-stars',
+    color: 'warning',
   },
   {
-    title: 'Revenue',
-    stats: '$9745',
-    icon: 'tabler-currency-dollar',
+    title: 'Montante Faturado',
+    stats: '€ 1.745',
+    icon: 'tabler-currency-euro',
     color: 'success',
   },
 ]
+const title = 'Estatísticas de ' + new Date().getFullYear()
 </script>
 
 <template>
-  <VCard title="Statistics">
+  <VCard :title="title">
     <template #append>
-      <span class="text-body-2">Updated 1 month ago</span>
+      <span class="text-body-2">Atualizado à 1 segundo...</span>
     </template>
 
     <VCardText class="pt-6">
