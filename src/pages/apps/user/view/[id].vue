@@ -2,7 +2,6 @@
 import { useUserListStore } from '@/views/apps/user/useUserListStore'
 import UserBioPanel from '@/views/apps/user/view/UserBioPanel.vue'
 import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
-import UserTabOverview from '@/views/apps/user/view/UserTabOverview.vue'
 import UserTabSecurity from '@/views/apps/user/view/UserTabSecurity.vue'
 
 const userListStore = useUserListStore()
