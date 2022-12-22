@@ -2,41 +2,26 @@
 const shortcuts = [
   {
     icon: 'tabler-calendar',
-    title: 'Calendar',
-    subtitle: 'Appointments',
+    title: 'Calendário',
+    subtitle: 'Consultas',
     to: { name: 'apps-calendar' },
   },
   {
-    icon: 'tabler-file',
-    title: 'Invoice App',
-    subtitle: 'Manage Accounts',
-    to: { name: 'apps-invoice-list' },
-  },
-  {
-    icon: 'tabler-user',
-    title: 'Users',
-    subtitle: 'Manage Users',
+    icon: 'tabler-users',
+    title: 'Lista de Clientes',
+    subtitle: 'Gestão de Clientes',
     to: { name: 'apps-user-list' },
   },
   {
     icon: 'tabler-layout',
-    title: 'Dashboard',
-    subtitle: 'Dashboard Analytics',
+    title: 'Nova Consulta',
+    subtitle: 'Instantânea',
     to: { name: 'dashboards-analytics' },
   },
   {
-    icon: 'tabler-settings',
-    title: 'Settings',
-    subtitle: 'Account Settings',
-    to: {
-      name: 'pages-account-settings-tab',
-      params: { tab: 'account' },
-    },
-  },
-  {
     icon: 'tabler-help',
-    title: 'Help Center',
-    subtitle: 'FAQs & Articles',
+    title: 'Ajuda',
+    subtitle: 'FAQs',
     to: { name: 'pages-help-center' },
   },
 ]
