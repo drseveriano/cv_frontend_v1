@@ -2,7 +2,7 @@ export default [
     {
         title: 'Dashboards',
         icon: {icon: 'tabler-dashboard'},
-        to: 'dashboards-analytics'
+        to: 'dashboards-cv'
     },
     {
         title: 'Código Deontológico',

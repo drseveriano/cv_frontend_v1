@@ -4,7 +4,7 @@ import mock from '@/@fake-db/mock'
 const database = [
   {
     id: 1,
-    url: { name: 'dashboards-analytics' },
+    url: { name: 'dashboards-cv' },
     icon: 'tabler-timeline',
     title: 'Analytics Dashboard',
     category: 'dashboards',

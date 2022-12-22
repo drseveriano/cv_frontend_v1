@@ -17,7 +17,7 @@ const suggestionGroups = [
       {
         icon: 'tabler-chart-donut',
         title: 'Analytics',
-        url: { name: 'dashboards-analytics' },
+        url: { name: 'dashboards-cv' },
       },
       {
         icon: 'tabler-chart-bubble',
@@ -121,7 +121,7 @@ const noDataSuggestions = [
   {
     title: 'Analytics Dashboard',
     icon: 'tabler-shopping-cart',
-    url: { name: 'dashboards-analytics' },
+    url: { name: 'dashboards-cv' },
   },
   {
     title: 'Account Settings',

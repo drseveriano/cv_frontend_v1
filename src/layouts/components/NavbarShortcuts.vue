@@ -16,7 +16,7 @@ const shortcuts = [
     icon: 'tabler-layout',
     title: 'Nova Consulta',
     subtitle: 'Instantânea',
-    to: { name: 'dashboards-analytics' },
+    to: { name: 'dashboards-cv' },
   },
   {
     icon: 'tabler-help',
