@@ -11,7 +11,7 @@ export const { themeConfig, layoutConfig } = defineThemeConfig({
   app: {
     title: 'Clínica Virtual',
     logo: h('div', { innerHTML: logo, style: 'line-height:0; color: rgb(var(--v-global-theme-primary))' }),
-    contentWidth: ContentWidth.Boxed,
+    contentWidth: ContentWidth.Fluid,
     contentLayoutNav: AppContentLayoutNav.Vertical,
     overlayNavFromBreakpoint: breakpointsVuetify.md + 16,
     enableI18n: true,
