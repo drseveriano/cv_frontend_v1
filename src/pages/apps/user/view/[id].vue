@@ -2,8 +2,6 @@
 import { useUserListStore } from '@/views/apps/user/useUserListStore'
 import UserBioPanel from '@/views/apps/user/view/UserBioPanel.vue'
 import UserTabBillingsPlans from '@/views/apps/user/view/UserTabBillingsPlans.vue'
-import UserTabConnections from '@/views/apps/user/view/UserTabConnections.vue'
-import UserTabNotifications from '@/views/apps/user/view/UserTabNotifications.vue'
 import UserTabOverview from '@/views/apps/user/view/UserTabOverview.vue'
 import UserTabSecurity from '@/views/apps/user/view/UserTabSecurity.vue'
 
@@ -14,25 +12,13 @@ const userTab = ref(null)
 
 const tabs = [
   {
-    icon: 'tabler-user-check',
-    title: 'Overview',
-  },
-  {
     icon: 'tabler-lock',
-    title: 'Security',
+    title: 'Segurança',
   },
   {
     icon: 'tabler-currency-dollar',
-    title: 'Billing & Plan',
-  },
-  {
-    icon: 'tabler-bell',
-    title: 'Notifications',
-  },
-  {
-    icon: 'tabler-link',
-    title: 'Connections',
-  },
+    title: 'Plano & Faturação',
+  }
 ]
 
 userListStore.fetchUser(Number(route.params.id)).then(response => {
@@ -77,9 +63,6 @@ userListStore.fetchUser(Number(route.params.id)).then(response => {
         class="mt-6 disable-tab-transition"
         :touch="false"
       >
-        <VWindowItem>
-          <UserTabOverview />
-        </VWindowItem>
 
         <VWindowItem>
           <UserTabSecurity />
@@ -89,13 +72,6 @@ userListStore.fetchUser(Number(route.params.id)).then(response => {
           <UserTabBillingsPlans />
         </VWindowItem>
 
-        <VWindowItem>
-          <UserTabNotifications />
-        </VWindowItem>
-
-        <VWindowItem>
-          <UserTabConnections />
-        </VWindowItem>
       </VWindow>
     </VCol>
   </VRow>

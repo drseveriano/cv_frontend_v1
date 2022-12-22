@@ -1,4 +1,5 @@
 <script setup>
+const isCurrentPasswordVisible = ref(false)
 const isNewPasswordVisible = ref(false)
 const isConfirmPasswordVisible = ref(false)
 const smsVerificationNumber = ref('+1(968) 819-2547')
@@ -60,19 +61,8 @@ const recentDevices = [
   <VRow>
     <VCol cols="12">
       <!-- 👉 Change password -->
-      <VCard title="Change Password">
+      <VCard title="Modificar Password">
         <VCardText>
-          <VAlert
-            variant="tonal"
-            color="warning"
-            class="mb-4"
-          >
-            <VAlertTitle class="mb-1">
-              Ensure that these requirements are met
-            </VAlertTitle>
-            <span>Minimum 8 characters long, uppercase & symbol</span>
-          </VAlert>
-
           <VForm @submit.prevent="() => {}">
             <VRow>
               <VCol
@@ -80,7 +70,20 @@ const recentDevices = [
                 md="6"
               >
                 <VTextField
-                  label="New Password"
+                  label="Password Atual"
+                  :type="isCurrentPasswordVisible ? 'text' : 'password'"
+                  :append-inner-icon="isCurrentPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
+                  @click:append-inner="isCurrentPasswordVisible = !isCurrentPasswordVisible"
+                />
+              </VCol>
+            </VRow>
+            <VRow>
+              <VCol
+                cols="12"
+                md="6"
+              >
+                <VTextField
+                  label="Nova Password"
                   :type="isNewPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isNewPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isNewPasswordVisible = !isNewPasswordVisible"
@@ -91,7 +94,7 @@ const recentDevices = [
                 md="6"
               >
                 <VTextField
-                  label="Confirm Password"
+                  label="Confirme a Nova Password"
                   :type="isConfirmPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isConfirmPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isConfirmPasswordVisible = !isConfirmPasswordVisible"
@@ -100,7 +103,7 @@ const recentDevices = [
 
               <VCol cols="12">
                 <VBtn type="submit">
-                  Change Password
+                  Guardar Password
                 </VBtn>
               </VCol>
             </VRow>
@@ -112,8 +115,8 @@ const recentDevices = [
     <VCol cols="12">
       <!-- 👉 Two step verification -->
       <VCard
-        title="Two-step verification"
-        subtitle="Keep your account secure with authentication step."
+        title="Verificação em 2 passos"
+        subtitle="Mantenha a sua conta mais segura com a autenticação em 2 passos."
       >
         <VCardText>
           <div>
@@ -155,17 +158,17 @@ const recentDevices = [
           </div>
 
           <p class="mb-0 mt-4">
-            Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to log in. <a
+            A autenticação em dois passos adiciona uma camada extra de segurança à sua conta, prevenindo assim acessos indevidos. <a
               href="javascript:void(0)"
               class="text-decoration-none"
-            >Learn more</a>.
+            >Saber Mais</a>
           </p>
         </VCardText>
       </VCard>
     </VCol>
 
-    <VCol cols="12">
-      <!-- 👉 Recent devices -->
+    <!--<VCol cols="12">
+      👉 Recent devices
       <VCard title="Recent devices">
         <VDivider />
         <VTable class="text-no-wrap">
@@ -219,7 +222,7 @@ const recentDevices = [
           </tbody>
         </VTable>
       </VCard>
-    </VCol>
+    </VCol>-->
   </VRow>
 
   <!-- 👉 Enable One Time Password Dialog -->
