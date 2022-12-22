@@ -101,7 +101,7 @@ const logout = () => {
               />
             </template>
 
-            <VListItemTitle>Profile</VListItemTitle>
+            <VListItemTitle>Perfil</VListItemTitle>
           </VListItem>
 
           <!-- 👉 Settings -->
@@ -114,20 +114,7 @@ const logout = () => {
               />
             </template>
 
-            <VListItemTitle>Settings</VListItemTitle>
-          </VListItem>
-
-          <!-- 👉 Pricing -->
-          <VListItem :to="{ name: 'pages-pricing' }">
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="tabler-currency-dollar"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>Pricing</VListItemTitle>
+            <VListItemTitle>Definições</VListItemTitle>
           </VListItem>
 
           <!-- 👉 FAQ -->
@@ -140,7 +127,7 @@ const logout = () => {
               />
             </template>
 
-            <VListItemTitle>FAQ</VListItemTitle>
+            <VListItemTitle>FAQs</VListItemTitle>
           </VListItem>
 
           <!-- Divider -->
