@@ -5,7 +5,6 @@ import { useThemeConfig } from '@core/composable/useThemeConfig'
 // @layouts plugin
 import { AppContentLayoutNav } from '@layouts/enums'
 
-const DefaultLayoutWithHorizontalNav = defineAsyncComponent(() => import('./components/DefaultLayoutWithHorizontalNav.vue'))
 const DefaultLayoutWithVerticalNav = defineAsyncComponent(() => import('./components/DefaultLayoutWithVerticalNav.vue'))
 const { width: windowWidth } = useWindowSize()
 const { appContentLayoutNav, switchToVerticalNavOnLtOverlayNavBreakpoint } = useThemeConfig()
