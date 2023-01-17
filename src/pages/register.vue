@@ -13,16 +13,18 @@ import { useGenerateImageVariant } from '@core/composable/useGenerateImageVarian
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 import {
-  alphaDashValidator,
   emailValidator,
   requiredValidator,
+  confirmedValidator
 } from '@validators'
 
 const refVForm = ref()
-const username = ref('johnDoe')
-const email = ref('john@example.com')
-const password = ref('john@VUEXY#123')
-const privacyPolicies = ref(true)
+const email = ref(null)
+const password = ref(null)
+const name = ref(null)
+const nOPP = ref(null)
+const repeatPassword = ref(null)
+const privacyPolicies = ref(false)
 
 // Router
 const route = useRoute()
@@ -39,9 +41,11 @@ const errors = ref({
 
 const register = () => {
   axios.post('/auth/register', {
-    username: username.value,
+    name: name.value,
     email: email.value,
     password: password.value,
+    nOPP: nOPP.value,
+    accept: privacyPolicies.value
   }).then(r => {
     const { accessToken, userData, userAbilities } = r.data
 
@@ -65,6 +69,7 @@ const register = () => {
 const imageVariant = useGenerateImageVariant(authV2RegisterIllustrationLight, authV2RegisterIllustrationDark, authV2RegisterIllustrationBorderedLight, authV2RegisterIllustrationBorderedDark, true)
 const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
 const isPasswordVisible = ref(false)
+const isRPasswordVisible = ref(false)
 
 const onSubmit = () => {
   refVForm.value?.validate().then(({ valid: isValid }) => {
@@ -115,10 +120,10 @@ const onSubmit = () => {
             class="mb-6"
           />
           <h5 class="text-h5 font-weight-semibold mb-1">
-            Adventure starts here 🚀
+            Começe Aqui 🚀
           </h5>
           <p class="mb-0">
-            Make your app management easy and fun!
+            Revolucione a gestão do seu dia-a-dia profissional!
           </p>
         </VCardText>
 
@@ -128,12 +133,12 @@ const onSubmit = () => {
             @submit.prevent="onSubmit"
           >
             <VRow>
-              <!-- Username -->
+              <!-- Full Name -->
               <VCol cols="12">
                 <VTextField
-                  v-model="username"
-                  :rules="[requiredValidator, alphaDashValidator]"
-                  label="Username"
+                  v-model="name"
+                  :rules="[requiredValidator]"
+                  label="Nome Completo"
                 />
               </VCol>
 
@@ -147,6 +152,16 @@ const onSubmit = () => {
                 />
               </VCol>
 
+              <!-- email -->
+              <VCol cols="12">
+                <VTextField
+                  v-model="nOPP"
+                  :rules="[requiredValidator]"
+                  label="N.º Cédula Ordem dos Psicólogos"
+                  type="text"
+                />
+              </VCol>
+
               <!-- password -->
               <VCol cols="12">
                 <VTextField
@@ -156,6 +171,14 @@ const onSubmit = () => {
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                /> <br />
+                <VTextField
+                  v-model="repeatPassword"
+                  :rules="[requiredValidator, confirmedValidator(repeatPassword, password)]"
+                  label="Repita a Password"
+                  :type="isRPasswordVisible ? 'text' : 'password'"
+                  :append-inner-icon="isRPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
+                  @click:append-inner="isRPasswordVisible = !isRPasswordVisible"
                 />
 
                 <div class="d-flex align-center mt-2 mb-4">
@@ -169,11 +192,11 @@ const onSubmit = () => {
                     class="pb-1"
                     style="opacity: 1;"
                   >
-                    <span class="me-1">I agree to</span>
+                    <span class="me-1">Aceito os</span>
                     <a
                       href="javascript:void(0)"
                       class="text-primary"
-                    >privacy policy & terms</a>
+                    >termos e condições</a>
                   </VLabel>
                 </div>
 
@@ -181,7 +204,7 @@ const onSubmit = () => {
                   block
                   type="submit"
                 >
-                  Sign up
+                  Registar
                 </VBtn>
               </VCol>
 
@@ -190,30 +213,13 @@ const onSubmit = () => {
                 cols="12"
                 class="text-center text-base"
               >
-                <span>Already have an account?</span>
+                <span>Já tem conta?</span>
                 <RouterLink
                   class="text-primary ms-2"
                   :to="{ name: 'login' }"
                 >
-                  Sign in instead
+                  Aceder
                 </RouterLink>
-              </VCol>
-
-              <VCol
-                cols="12"
-                class="d-flex align-center"
-              >
-                <VDivider />
-                <span class="mx-4">or</span>
-                <VDivider />
-              </VCol>
-
-              <!-- auth providers -->
-              <VCol
-                cols="12"
-                class="text-center"
-              >
-                <AuthProvider />
               </VCol>
             </VRow>
           </VForm>

@@ -26,7 +26,7 @@ const database = [
   {
     id: 1,
     fullName: 'John Doe',
-    username: 'johndoe',
+    nOPP: '12000',
     password: 'admin',
     avatar: avatar1,
     email: 'admin@demo.com',
@@ -41,7 +41,7 @@ const database = [
   {
     id: 2,
     fullName: 'Jane Doe',
-    username: 'janedoe',
+    nOPP: '13000',
     password: 'client',
     avatar: avatar2,
     email: 'client@demo.com',
@@ -98,13 +98,13 @@ mock.onPost('/auth/login').reply(request => {
   return [400, { errors }]
 })
 mock.onPost('/auth/register').reply(request => {
-  const { username, email, password } = JSON.parse(request.data)
+  const { name, email, password, nOPP, accept } = JSON.parse(request.data)
 
   // If not any of data is missing return 400
-  if (!(username && email && password))
+  if (!(name && email && password && accept && nOPP))
     return [400]
   const isEmailAlreadyInUse = database.find(user => user.email === email)
-  const isUsernameAlreadyInUse = database.find(user => user.username === username)
+  const isUsernameAlreadyInUse = database.find(user => user.name === name)
 
   const errors = {
     password: !password ? ['Please enter password'] : null,
@@ -116,8 +116,8 @@ mock.onPost('/auth/register').reply(request => {
       
       return null
     })(),
-    username: (() => {
-      if (!username)
+    name: (() => {
+      if (!name)
         return ['Please enter your username.']
       if (isUsernameAlreadyInUse)
         return ['This username is already in use.']
@@ -126,7 +126,7 @@ mock.onPost('/auth/register').reply(request => {
     })(),
   }
 
-  if (!errors.username && !errors.email) {
+  if (!errors.name && !errors.email) {
     // Calculate user id
     const { length } = database
     let lastIndex = 0
@@ -138,8 +138,8 @@ mock.onPost('/auth/register').reply(request => {
       id: lastIndex,
       email,
       password,
-      username,
-      fullName: '',
+      name,
+      fullName: name,
       role: 'admin',
       abilities: [
         {
