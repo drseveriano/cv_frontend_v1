@@ -7,6 +7,7 @@ export default [
     {
         title: 'Código Deontológico',
         icon: {icon: 'tabler-book'},
-        to: 'dashboards-crm'
+        target: '_blank',
+        href: 'https://www.ordemdospsicologos.pt/ficheiros/documentos/web_cod_deontologico_pt_revisao_2016_1.pdf'
     }
 ]
