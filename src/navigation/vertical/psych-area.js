@@ -20,7 +20,7 @@ export default [
         children: [
             {
                 title: 'Nova Consulta',
-                to: 'forms-checkbox',
+                to: 'apps-appointments-new',
             },
             {
                 title: 'Nova Referenciação',
