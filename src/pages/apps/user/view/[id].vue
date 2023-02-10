@@ -20,7 +20,7 @@ const tabs = [
   }
 ]
 
-userListStore.fetchUser(Number(route.params.id)).then(response => {
+userListStore.fetchUser(route.params.id).then(response => {
   userData.value = response.data
 })
 </script>

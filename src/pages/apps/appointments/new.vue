@@ -1,9 +1,57 @@
 <script setup>
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
+import avatar1 from "@images/avatars/avatar-1.png";
+const isUserInfoEditDialogVisible = ref(false)
+
 const currentTab = ref('tab-client')
-const selectedItem = ref('Cliente A')
-const clients = ['Cliente A', 'Cliente B', 'Cliente C']
+const selectedClient = {
+  id: 0,
+  firstName: '',
+  lastName: '',
+  fullName: '',
+  email: '',
+  nif: '',
+  phone: '',
+  preferOnline: true,
+  hasDebts: false
+}
+const sample = selectedClient
+const clients = [
+  {
+    id: 1,
+    firstName: 'A',
+    lastName: 'A',
+    fullName: 'A A',
+    email: '',
+    nif: '',
+    phone: '',
+    preferOnline: true,
+    hasDebts: false
+  },
+  {
+    id: 2,
+    firstName: 'B',
+    lastName: 'B',
+    fullName: 'B B',
+    email: '',
+    nif: '',
+    phone: '',
+    preferOnline: true,
+    hasDebts: true
+  },
+  {
+    id: 3,
+    firstName: 'C',
+    lastName: 'C',
+    fullName: 'C C',
+    email: '',
+    nif: '',
+    phone: '',
+    preferOnline: true,
+    hasDebts: false
+  }
+]
 const date = ref(null)
 const time = ref(null)
 
@@ -12,6 +60,7 @@ const specialties = ['A', 'B', 'C']
 const selectedSpecialty = ref('A')
 const conditions = ['A', 'B', 'C']
 const selectedCondition = ref('A')
+
 
 //my details (psych)
 const address = {
@@ -22,32 +71,7 @@ const address = {
   "phone": "261 854 000"
 }
 
-const clientList = [
-  {
-    "fullName": "Cliente A",
-    "nif": "PT 251 911 853",
-    "email": "a@clinicavirtual.pt",
-    "hasDebts": false
-  },
-  {
-    "fullName": "Cliente B",
-    "nif": "PT 222 333 853",
-    "email": "b@clinicavirtual.pt",
-    "hasDebts": true
-  },
-  {
-    "fullName": "Cliente C",
-    "nif": "PT 555 111 853",
-    "email": "c@clinicavirtual.pt",
-    "hasDebts": false
-  }
-]
-
-function findByName(name) {
-  if (name)
-    return clientList.filter(client => client.fullName == name)[0]
-}
-
+function onChange(i) { console.log(i) }
 </script>
 
 <template>
@@ -93,7 +117,7 @@ function findByName(name) {
               Especialidade & Condição
             </VTab>
 
-            <VTab v-if="selectedItem && selectedCondition && selectedSpecialty && date && time">
+            <VTab v-if="selectedClient && selectedCondition && selectedSpecialty && date && time">
               <VIcon
                 start
                 icon="tabler-access-point"
@@ -111,8 +135,12 @@ function findByName(name) {
                 cols="12">
                 <p>Seleccione o cliente da lista abaixo ou crie um novo.</p>
                 <VCombobox
-                  v-model="selectedItem"
+                  v-model="selectedClient"
                   :items="clients"
+                  item-title="fullName"
+                  item-value="id"
+                  placeholder="Cliente"
+
                 />
 
                 <VCol
@@ -125,14 +153,16 @@ function findByName(name) {
                 </VCol>
 
                 <VBtn
-                  block
-                  type="submit"
+                  variant="elevated"
+                  class="me-3"
+                  @click="isUserInfoEditDialogVisible = true;"
                 >
                   Criar Novo Cliente
                 </VBtn>
+
                 <br />
 
-                <div v-if="selectedItem">
+                <div v-if="selectedClient">
                   <VCol
                     cols="12"
                     class="d-flex align-center"
@@ -144,10 +174,10 @@ function findByName(name) {
                   <VCol
                     cols="12">
 
-                    <VTextField disabled label="Nome Completo" v-model="selectedItem" /><br />
-                    <VTextField disabled label="NIF" v-model="findByName(selectedItem).nif" /><br />
-                    <VTextField disabled label="E-mail" v-model="findByName(selectedItem).email" /><br />
-                    <div v-if="findByName(selectedItem).hasDebts">
+                    <VTextField disabled label="Nome Completo" v-model="selectedClient.fullName" /><br />
+                    <VTextField disabled label="NIF" v-model="selectedClient.nif" /><br />
+                    <VTextField disabled label="E-mail" v-model="selectedClient.email" /><br />
+                    <div v-if="selectedClient.hasDebts">
                       <RouterLink to="/apps/client/debts">
                         <VChip label color="error">
                           <VIcon
@@ -217,4 +247,13 @@ function findByName(name) {
 
     </VCard>
   </VCol>
+
+  <!-- 👉 Edit user info dialog -->
+  <NewClientDialog
+    v-model:isDialogVisible="isUserInfoEditDialogVisible"
+    :user-data="sample"
+  />
+
+
+
 </template>

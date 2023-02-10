@@ -1,8 +1,9 @@
 <script setup>
+import axios from 'axios'
 const isCurrentPasswordVisible = ref(false)
 const isNewPasswordVisible = ref(false)
 const isConfirmPasswordVisible = ref(false)
-const smsVerificationNumber = ref('+1(968) 819-2547')
+const smsVerificationNumber = ref('+351 ')
 const isTwoFactorDialogOpen = ref(false)
 
 const recentDevices = [
@@ -55,6 +56,32 @@ const recentDevices = [
     activity: '20, July 2021 21:01',
   },
 ]
+
+function sendVerifyCode(val) {
+  let clear = new Boolean(false)
+  if (val == -1) {
+    if (confirm("Tem a certeza que pretende desativar a segunda autenticação?")) {
+      smsVerificationNumber.value = "+351 "
+      console.log("Clearing 2nd auth service")
+      clear = new Boolean(true)
+    }
+  }
+  else
+    console.log("Sending verification code for " + val)
+
+  if (!!clear) {
+    axios.put("http://localhost:5262/api/Users/TwoAuthService", {phone: val}, {withCredentials: true})
+      .then((result) => {
+        if (result.status == 200) {
+          console.log("Successfully")
+          if (val != -1)
+            smsVerificationNumber.value = "+351 " + val
+        } else {
+          console.log(result.statusText)
+        }
+      })
+  }
+}
 </script>
 
 <template>
@@ -147,6 +174,7 @@ const recentDevices = [
                   size="x-small"
                   color="default"
                   variant="text"
+                  @click="sendVerifyCode(-1)"
                 >
                   <VIcon
                     size="22"
@@ -229,5 +257,6 @@ const recentDevices = [
   <EnableOneTimePasswordDialog
     v-model:isDialogVisible="isTwoFactorDialogOpen"
     :mobile-number="smsVerificationNumber"
+    @submit="sendVerifyCode"
   />
 </template>

@@ -7,7 +7,6 @@ import authV2RegisterIllustrationLight from '@images/pages/auth-v2-register-illu
 import authV2MaskDark from '@images/pages/misc-mask-dark.png'
 import authV2MaskLight from '@images/pages/misc-mask-light.png'
 import { useAppAbility } from '@/plugins/casl/useAppAbility'
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import axios from '@axios'
 import { useGenerateImageVariant } from '@core/composable/useGenerateImageVariant'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
@@ -21,8 +20,10 @@ import {
 const refVForm = ref()
 const email = ref(null)
 const password = ref(null)
-const name = ref(null)
-const nOPP = ref(null)
+const firstName = ref(null)
+const lastName = ref(null)
+const cedula = ref(null)
+const phone = ref(null)
 const repeatPassword = ref(null)
 const privacyPolicies = ref(false)
 
@@ -40,14 +41,19 @@ const errors = ref({
 })
 
 const register = () => {
-  axios.post('/auth/register', {
-    name: name.value,
+  axios.post('http://localhost:5262/api/Users/Create', {
+    firstName: firstName.value,
+    lastName: lastName.value,
     email: email.value,
     password: password.value,
-    nOPP: nOPP.value,
+    cedula: cedula.value,
+    phone: phone.value,
     accept: privacyPolicies.value
+  }, {
+    withCredentials: true
   }).then(r => {
-    const { accessToken, userData, userAbilities } = r.data
+    console.log(r.data)
+    /*const { accessToken, userData, userAbilities } = r.data
 
     localStorage.setItem('userAbilities', JSON.stringify(userAbilities))
     ability.update(userAbilities)
@@ -57,7 +63,7 @@ const register = () => {
     // Redirect to `to` query if exist or redirect to index route
     router.replace(route.query.to ? String(route.query.to) : '/')
     
-    return null
+    return null*/
   }).catch(e => {
     const { errors: formErrors } = e.response.data
 
@@ -136,9 +142,17 @@ const onSubmit = () => {
               <!-- Full Name -->
               <VCol cols="12">
                 <VTextField
-                  v-model="name"
+                  v-model="firstName"
                   :rules="[requiredValidator]"
-                  label="Nome Completo"
+                  label="Primeiro Nome"
+                />
+              </VCol>
+
+              <VCol cols="12">
+                <VTextField
+                  v-model="lastName"
+                  :rules="[requiredValidator]"
+                  label="Apelido"
                 />
               </VCol>
 
@@ -155,7 +169,17 @@ const onSubmit = () => {
               <!-- email -->
               <VCol cols="12">
                 <VTextField
-                  v-model="nOPP"
+                  v-model="phone"
+                  :rules="[]"
+                  label="N.º Telemóvel"
+                  type="phone"
+                />
+              </VCol>
+
+              <!-- email -->
+              <VCol cols="12">
+                <VTextField
+                  v-model="cedula"
                   :rules="[requiredValidator]"
                   label="N.º Cédula Ordem dos Psicólogos"
                   type="text"

@@ -22,12 +22,13 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
 const isPasswordVisible = ref(false)
 const route = useRoute()
 const router = useRouter()
-const ability = useAppAbility()
 
 const errors = ref({
   email: undefined,
   password: undefined,
 })
+
+const ability = useAppAbility()
 
 const refVForm = ref()
 const email = ref('admin@demo.com')
@@ -35,19 +36,31 @@ const password = ref('admin')
 const rememberMe = ref(false)
 
 const login = () => {
-  axios.post('/auth/login', {
-    email: email.value,
-    password: password.value,
-  }).then(r => {
-    const { accessToken, userData, userAbilities } = r.data
+  axios.get('http://localhost:5262/api/Users/Login',
+    { auth: { username: email.value, password: password.value }, withCredentials: true }).then(r => {
 
-    localStorage.setItem('userAbilities', JSON.stringify(userAbilities))
-    ability.update(userAbilities)
-    localStorage.setItem('userData', JSON.stringify(userData))
-    localStorage.setItem('accessToken', JSON.stringify(accessToken))
+    const userOutData = Object.fromEntries(Object.entries(r.data)
+      .filter(([key, _]) => !(key === 'password')))
+
+    const response = {
+      userAbilities: {
+        abilities: [
+          {
+            action: 'read',
+            subject: 'Auth',
+          }
+        ]
+      },
+      accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg",
+      userData: userOutData
+    }
+    localStorage.setItem('userData', JSON.stringify(response.userData))
+    localStorage.setItem('accessToken', JSON.stringify(response.accessToken))
+    localStorage.setItem('userAbilities', JSON.stringify(response.userAbilities))
+    ability.update(response.userAbilities)
 
     // Redirect to `to` query if exist or redirect to index route
-    router.replace(route.query.to ? String(route.query.to) : '/')
+    router.replace(route.query.to ? String(route.query.to) : '/dashboards/cv')
   }).catch(e => {
     const { errors: formErrors } = e.response.data
 

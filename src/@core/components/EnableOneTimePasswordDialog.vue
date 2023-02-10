@@ -46,16 +46,16 @@ const dialogModelValueUpdate = val => {
     <VCard class="pa-5 pa-sm-15">
       <VCardItem class="text-center">
         <VCardTitle class="text-h5 font-weight-medium ">
-          Enable One Time Password
+          One Time Password
         </VCardTitle>
         <VCardSubtitle class="mt-3">
-          Verify Your Mobile Number for SMS
+
         </VCardSubtitle>
       </VCardItem>
 
       <VCardText class="pt-6">
         <p class="mb-6">
-          Enter your mobile phone number with country code and  we will send you a verification code.
+          Introduza o seu número de telemóvel e enviaremos de seguida um código de validação.
         </p>
 
         <VForm @submit.prevent="() => {}">
@@ -64,9 +64,9 @@ const dialogModelValueUpdate = val => {
             dirty
             name="mobile"
             type="number"
-            prefix="+1"
-            label="Phone Number"
-            placeholder="202 555 0111"
+            prefix="+351"
+            label="N.º Telemóvel"
+            placeholder="912 234 567"
             class="mb-5"
           />
 

@@ -25,18 +25,18 @@ const isUserInfoEditDialogVisible = ref(false)
 const isUpgradePlanDialogVisible = ref(false)
 
 const resolveUserStatusVariant = stat => {
-  if (stat === 'pending')
+  if (stat === 'Pending')
     return 'warning'
-  if (stat === 'active')
+  if (stat === 'Active')
     return 'success'
-  if (stat === 'inactive')
+  if (stat === 'Inactive')
     return 'secondary'
   
   return 'primary'
 }
 
 const resolveUserRoleVariant = role => {
-  if (role === 'subscriber')
+  if (role === 'subscriber' || !role)
     return {
       color: 'warning',
       icon: 'tabler-user',
@@ -90,13 +90,13 @@ const resolveUserRoleVariant = role => {
               v-else
               class="text-5xl font-weight-semibold"
             >
-              {{ avatarText(props.userData.fullName) }}
+              {{ avatarText(props.userData.firstName + " " + props.userData.lastName) }}
             </span>
           </VAvatar>
 
           <!-- 👉 User fullName -->
           <h6 class="text-h6 mt-4">
-            {{ props.userData.fullName }}
+            {{ props.userData.firstName + " " + props.userData.lastName }}
           </h6>
 
           <!-- 👉 Role chip -->
@@ -142,7 +142,7 @@ const resolveUserRoleVariant = role => {
                 <h6 class="text-base font-weight-semibold">
                   Nome Completo:
                   <span class="text-body-2">
-                    {{ props.userData.fullName }}
+                    {{ props.userData.firstName + " " + props.userData.lastName }}
                   </span>
                 </h6>
               </VListItemTitle>
@@ -151,9 +151,9 @@ const resolveUserRoleVariant = role => {
             <VListItem>
               <VListItemTitle>
                 <h6 class="text-base font-weight-semibold">
-                  N.º da OPP:
+                  N.º de Cédula:
                   <span class="text-body-2">
-                    # 12355
+                    # {{ props.userData.cedula }}
                   </span>
                 </h6>
               </VListItemTitle>
@@ -172,7 +172,7 @@ const resolveUserRoleVariant = role => {
               <VListItemTitle>
                 <h6 class="text-base font-weight-semibold">
                   N.º Telefone/Telemóvel:
-                  <span class="text-body-2">{{ props.userData.contact }}</span>
+                  <span class="text-body-2">{{ props.userData.phone }}</span>
                 </h6>
               </VListItemTitle>
             </VListItem>

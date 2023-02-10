@@ -7,19 +7,20 @@ export const useUserListStore = defineStore('UserListStore', {
     fetchUsers(params) { return axios.get('/apps/users/list', { params }) },
 
     // 👉 Add User
-    addUser(userData) {
+    /*addUser(userData) {
       return new Promise((resolve, reject) => {
         axios.post('/apps/users/user', {
           user: userData,
         }).then(response => resolve(response))
           .catch(error => reject(error))
       })
-    },
+    },*/
 
     // 👉 fetch single user
     fetchUser(id) {
       return new Promise((resolve, reject) => {
-        axios.get(`/apps/users/${id}`).then(response => resolve(response)).catch(error => reject(error))
+        axios.get("http://localhost:5262/api/Users/Read?Id=" + id, {withCredentials: true})
+            .then(response => resolve(response)).catch(error => reject(error))
       })
     },
   },

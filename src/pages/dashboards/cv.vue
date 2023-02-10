@@ -50,3 +50,9 @@ const userData = JSON.parse(localStorage.getItem("userData"))
 <style lang="scss">
 @use "@core/scss/template/libs/apex-chart.scss";
 </style>
+
+<route lang="yaml">
+meta:
+action: read
+subject: Dashboard
+</route>
